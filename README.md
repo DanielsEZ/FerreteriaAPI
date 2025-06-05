@@ -1,72 +1,88 @@
-# FerreteriaAPI
+FerreteriaAPI
+API RESTful desarrollada con ASP.NET Core (.NET 8) para la gestión de clientes, artículos, ventas y operaciones generales de una ferretería.
 
-API RESTful para la gestión de clientes y operaciones de una ferretería, desarrollada con ASP.NET Core (.NET 8).
+🚀 Características
+Autenticación con JWT
 
-## Características
+CRUD completo de clientes
 
-- CRUD de clientes
-- Autenticación JWT
-- Documentación Swagger
-- Entity Framework Core con SQL Server
+Documentación interactiva con Swagger
 
-## Requisitos
+Integración con Entity Framework Core y SQL Server
 
-- [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
-- SQL Server (local o remoto)
-- Visual Studio 2022 (opcional)
+Arquitectura limpia: separación en Controllers, DTOs y Services
 
-## Configuración
+✅ Requisitos
+.NET 8 SDK
 
-1. **Clona el repositorio:**
+SQL Server (local o en la nube)
 
-   
-2. **Configura la cadena de conexión y la clave JWT:**
+Visual Studio 2022 o superior (opcional)
 
-   - Copia el archivo `appsettings.example.json` a `appsettings.json`.
-   - Modifica los valores de `DefaultConnection` y `Token` según tu entorno.
+⚙️ Configuración del proyecto
+Clona el repositorio
 
-3. **Restaura los paquetes NuGet:**
+bash
+Copiar
+Editar
+git clone https://github.com/tu-usuario/FerreteriaAPI.git
+cd FerreteriaAPI
+Configura appsettings.json
 
-   
-4. **Aplica las migraciones y crea la base de datos (opcional):**
+Copia el archivo appsettings.example.json y renómbralo como appsettings.json.
 
-   
-5. **Ejecuta la API:**
+Ajusta:
 
-   
-6. **Accede a la documentación Swagger:**
+La cadena de conexión DefaultConnection
 
-   Visita [https://localhost:7166/swagger](https://localhost:7166/swagger) en tu navegador.
+La clave secreta Token:Key para JWT
 
-## Estructura del proyecto
+Restaura los paquetes NuGet
 
-- `FerreteriaAPI/Controllers` - Controladores de la API
-- `FerreteriaAPI/DTOs` - Objetos de transferencia de datos
-- `FerreteriaAPI/Services` - Lógica de negocio y servicios
-- `FerreteriaAPI/appsettings.json` - Configuración de la aplicación (no subir datos sensibles)
+bash
+Copiar
+Editar
+dotnet restore
+Aplica las migraciones y crea la base de datos
 
-## Notas
+bash
+Copiar
+Editar
+dotnet ef database update
+Ejecuta la API
 
-- No subas tu archivo `appsettings.json` con datos sensibles. Usa el archivo de ejemplo para compartir la estructura de configuración.
-- Si tienes dudas sobre cómo configurar el entorno, revisa la documentación oficial de .NET y SQL Server.
+bash
+Copiar
+Editar
+dotnet run
+Accede a Swagger
 
-## Licencia
+Abre en tu navegador: https://localhost:7166/swagger
 
-[MIT](LICENSE)
+📁 Estructura del proyecto
+Controllers/ → Controladores de la API
 
----
+DTOs/ → Objetos de transferencia de datos
 
-## appsettings.example.json
+Services/ → Lógica de negocio
 
----
+appsettings.json → Configuración (¡no subir datos sensibles!)
 
-**Recomendaciones:**
-- Cambia la URL del repositorio por la tuya.
-- Personaliza los valores de ejemplo según tu entorno.
-- Agrega `appsettings.json` a tu `.gitignore` para evitar subir información sensible.
+📝 Notas importantes
+No subas tu appsettings.json al repositorio. Usa .gitignore.
 
-#Parte de la base de datos
+El archivo appsettings.example.json sirve como guía de configuración para otros desarrolladores.
 
+La autenticación usa JWT: asegúrate de proteger tu clave secreta.
+
+Para dudas, consulta la documentación oficial de .NET y SQL Server.
+
+🧪 Esquema de base de datos
+Aquí se presenta una parte del modelo relacional:
+
+sql
+Copiar
+Editar
 -- Tabla Usuario
 CREATE TABLE Usuario (
     UsuarioID INT IDENTITY(1,1) PRIMARY KEY,
@@ -157,4 +173,5 @@ CREATE TABLE DetalleVenta (
     FOREIGN KEY (VentaID) REFERENCES Venta(VentaID),
     FOREIGN KEY (ArticuloID) REFERENCES Articulo(ArticuloID)
 );
-
+📄 Licencia
+Este proyecto está bajo la licencia MIT.
