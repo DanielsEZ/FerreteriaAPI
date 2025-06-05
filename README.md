@@ -1,177 +1,103 @@
-FerreteriaAPI
-API RESTful desarrollada con ASP.NET Core (.NET 8) para la gestión de clientes, artículos, ventas y operaciones generales de una ferretería.
+# 🏗️ Ferreteria API
 
-🚀 Características
-Autenticación con JWT
+[![.NET](https://img.shields.io/badge/.NET-8.0-512BD4?logo=dotnet)](https://dotnet.microsoft.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-CRUD completo de clientes
+API RESTful desarrollada con ASP.NET Core 8 para la gestión integral de una ferretería. Incluye módulos para clientes, artículos, ventas, empleados y más.
 
-Documentación interactiva con Swagger
+## 🚀 Características
 
-Integración con Entity Framework Core y SQL Server
+- **Autenticación segura** con JWT (JSON Web Tokens)
+- **CRUD completo** para todas las entidades principales
+- **Documentación interactiva** con Swagger/OpenAPI
+- **Arquitectura limpia** siguiendo mejores prácticas
+- **Entity Framework Core** con SQL Server
+- **Manejo de transacciones** para operaciones críticas
+- **Validación de datos** robusta
+- **Sistema de roles y permisos**
 
-Arquitectura limpia: separación en Controllers, DTOs y Services
+## 📋 Requisitos
 
-✅ Requisitos
-.NET 8 SDK
+- .NET 8.0 SDK o superior
+- SQL Server 2019+ (local o en la nube)
+- Visual Studio 2022 o VS Code (recomendado)
 
-SQL Server (local o en la nube)
+## 🛠️ Configuración
 
-Visual Studio 2022 o superior (opcional)
+1. **Clonar el repositorio**
+   ```bash
+   git clone https://github.com/DanielsEZ/FerreteriaAPI.git
+   cd FerreteriaAPI
+   ```
 
-⚙️ Configuración del proyecto
-Clona el repositorio
+2. **Configurar la base de datos**
+   - Copiar `appsettings.example.json` a `appsettings.json`
+   - Configurar la cadena de conexión en `ConnectionStrings.DefaultConnection`
+   - Establecer `Token:Key` para JWT (mínimo 16 caracteres)
 
-bash
-Copiar
-Editar
-git clone https://github.com/tu-usuario/FerreteriaAPI.git
-cd FerreteriaAPI
-Configura appsettings.json
+3. **Restaurar paquetes**
+   ```bash
+   dotnet restore
+   ```
 
-Copia el archivo appsettings.example.json y renómbralo como appsettings.json.
+4. **Aplicar migraciones**
+   ```bash
+   dotnet ef database update
+   ```
 
-Ajusta:
+5. **Ejecutar la aplicación**
+   ```bash
+   dotnet run
+   ```
 
-La cadena de conexión DefaultConnection
+6. **Acceder a la documentación**
+   Abre tu navegador en: [https://localhost:7166/swagger](https://localhost:7166/swagger)
 
-La clave secreta Token:Key para JWT
+## 🗄️ Estructura del Proyecto
 
-Restaura los paquetes NuGet
+```
+FerreteriaAPI/
+├── Controllers/      # Controladores de la API
+├── Data/              # Contexto de base de datos y configuraciones
+├── DTOs/              # Objetos de transferencia de datos
+├── Models/            # Modelos de entidades
+├── Services/          # Lógica de negocio
+├── Migrations/        # Migraciones de Entity Framework
+└── appsettings.json   # Configuración de la aplicación
+```
 
-bash
-Copiar
-Editar
-dotnet restore
-Aplica las migraciones y crea la base de datos
+## 📊 Esquema de Base de Datos
 
-bash
-Copiar
-Editar
-dotnet ef database update
-Ejecuta la API
+El sistema utiliza las siguientes tablas principales:
 
-bash
-Copiar
-Editar
-dotnet run
-Accede a Swagger
+- `Usuario`: Gestión de usuarios del sistema
+- `Articulo`: Catálogo de productos
+- `Cliente`: Información de clientes
+- `Empleado`: Datos del personal
+- `Venta` y `DetalleVenta`: Registro de transacciones
+- `FormaPago`: Métodos de pago disponibles
 
-Abre en tu navegador: https://localhost:7166/swagger
+## 🔐 Seguridad
 
-📁 Estructura del proyecto
-Controllers/ → Controladores de la API
+- Autenticación basada en JWT
+- Hash de contraseñas con BCrypt
+- Protección contra ataques CSRF
+- Validación de entrada en todos los endpoints
 
-DTOs/ → Objetos de transferencia de datos
+## 📝 Licencia
 
-Services/ → Lógica de negocio
+Este proyecto está bajo la [Licencia MIT](LICENSE).
 
-appsettings.json → Configuración (¡no subir datos sensibles!)
+## 🤝 Contribuciones
 
-📝 Notas importantes
-No subas tu appsettings.json al repositorio. Usa .gitignore.
+Las contribuciones son bienvenidas. Por favor, lee las [pautas de contribución](CONTRIBUTING.md) antes de enviar un pull request.
 
-El archivo appsettings.example.json sirve como guía de configuración para otros desarrolladores.
+## 📧 Contacto
 
-La autenticación usa JWT: asegúrate de proteger tu clave secreta.
+Daniel - [@tuusuario](https://github.com/DanielsEZ)
 
-Para dudas, consulta la documentación oficial de .NET y SQL Server.
+---
 
-🧪 Esquema de base de datos
-Aquí se presenta una parte del modelo relacional:
-
-sql
-Copiar
-Editar
--- Tabla Usuario
-CREATE TABLE Usuario (
-    UsuarioID INT IDENTITY(1,1) PRIMARY KEY,
-    Nombre VARCHAR(50) NOT NULL,
-    Apellido VARCHAR(50) NOT NULL,
-    NombreUsuario VARCHAR(50) NOT NULL UNIQUE,
-    Contrasena VARCHAR(100) NOT NULL,
-    Activo BIT DEFAULT 1,
-    FechaCreacion DATETIME DEFAULT GETDATE()
-);
-
--- Tabla Articulo
-CREATE TABLE Articulo (
-    ArticuloID INT IDENTITY(1,1) PRIMARY KEY,
-    Codigo VARCHAR(20) NOT NULL UNIQUE,
-    Nombre VARCHAR(100) NOT NULL,
-    Descripcion VARCHAR(255),
-    PrecioCompra DECIMAL(10,2) NOT NULL,
-    PrecioVenta DECIMAL(10,2) NOT NULL,
-    Stock INT NOT NULL DEFAULT 0,
-    Categoria VARCHAR(50),
-    Proveedor VARCHAR(100),
-    Ubicacion VARCHAR(50),
-    Activo BIT DEFAULT 1,
-    FechaCreacion DATETIME DEFAULT GETDATE()
-);
-
--- Tabla Cliente
-CREATE TABLE Cliente (
-    ClienteID INT IDENTITY(1,1) PRIMARY KEY,
-    Nombre VARCHAR(50) NOT NULL,
-    Apellido VARCHAR(50) NOT NULL,
-    Direccion VARCHAR(255),
-    Telefono VARCHAR(20),
-    Email VARCHAR(100),
-    NIT VARCHAR(20),
-    Activo BIT DEFAULT 1,
-    FechaCreacion DATETIME DEFAULT GETDATE()
-);
-
--- Tabla Empleado
-CREATE TABLE Empleado (
-    EmpleadoID INT IDENTITY(1,1) PRIMARY KEY,
-    Nombre VARCHAR(50) NOT NULL,
-    Apellido VARCHAR(50) NOT NULL,
-    Direccion VARCHAR(255),
-    Telefono VARCHAR(20),
-    Email VARCHAR(100),
-    DPI VARCHAR(20) NOT NULL UNIQUE,
-    Puesto VARCHAR(50),
-    Salario DECIMAL(10,2),
-    Activo BIT DEFAULT 1,
-    FechaCreacion DATETIME DEFAULT GETDATE()
-);
-
--- Tabla FormaPago
-CREATE TABLE FormaPago (
-    FormaPagoID INT IDENTITY(1,1) PRIMARY KEY,
-    Nombre VARCHAR(50) NOT NULL,
-    Descripcion VARCHAR(255),
-    Activo BIT DEFAULT 1
-);
-
--- Tabla Venta
-CREATE TABLE Venta (
-    VentaID INT IDENTITY(1,1) PRIMARY KEY,
-    ClienteID INT NOT NULL,
-    EmpleadoID INT NOT NULL,
-    FormaPagoID INT NOT NULL,
-    FechaVenta DATETIME DEFAULT GETDATE(),
-    Subtotal DECIMAL(10,2) NOT NULL,
-    Impuesto DECIMAL(10,2) NOT NULL,
-    Total DECIMAL(10,2) NOT NULL,
-    Estado VARCHAR(20) DEFAULT 'Completada',
-    FOREIGN KEY (ClienteID) REFERENCES Cliente(ClienteID),
-    FOREIGN KEY (EmpleadoID) REFERENCES Empleado(EmpleadoID),
-    FOREIGN KEY (FormaPagoID) REFERENCES FormaPago(FormaPagoID)
-);
-
--- Tabla DetalleVenta
-CREATE TABLE DetalleVenta (
-    DetalleVentaID INT IDENTITY(1,1) PRIMARY KEY,
-    VentaID INT NOT NULL,
-    ArticuloID INT NOT NULL,
-    Cantidad INT NOT NULL,
-    PrecioUnitario DECIMAL(10,2) NOT NULL,
-    Subtotal DECIMAL(10,2) NOT NULL,
-    FOREIGN KEY (VentaID) REFERENCES Venta(VentaID),
-    FOREIGN KEY (ArticuloID) REFERENCES Articulo(ArticuloID)
-);
-📄 Licencia
-Este proyecto está bajo la licencia MIT.
+<div align="center">
+  Hecho con ❤️ usando .NET Core
+</div>
