@@ -157,3 +157,4 @@ CREATE TABLE DetalleVenta (
     FOREIGN KEY (VentaID) REFERENCES Venta(VentaID),
     FOREIGN KEY (ArticuloID) REFERENCES Articulo(ArticuloID)
 );
+
