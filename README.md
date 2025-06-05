@@ -94,7 +94,7 @@ Las contribuciones son bienvenidas. Por favor, lee las [pautas de contribución]
 
 ## 📧 Contacto
 
-Daniel - [@tuusuario](https://github.com/DanielsEZ)
+Daniel - [@DanieleZ](https://github.com/DanielsEZ)
 
 ---
 
